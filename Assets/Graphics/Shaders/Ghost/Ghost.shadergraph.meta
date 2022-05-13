@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Graphics/New Shader Graph.shadergraph.meta
+guid: 571a29bd47e07ae4c88172ccec893f89
+=======
+guid: e515103dab60c184a999299b5876a4c5
+>>>>>>> Ghost-Tests:Assets/Shaders/Ghost.shadergraph.meta
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
