@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerDied : MonoBehaviour
 {
-    [SerializeField] PlayerHealth playerHealth;
+    private PlayerHealth playerHealth;
+    static public int score;
+
+    void Awake()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+    }
     void Update()
     {
         if (playerOutOfHealth()) playerDies();
@@ -13,7 +20,10 @@ public class PlayerDied : MonoBehaviour
 
     public void playerDies()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        TextMeshProUGUI textComponent = GameObject.FindGameObjectWithTag("Score").GetComponent<TextMeshProUGUI>();
+        score = int.Parse(textComponent.text);
+        SceneManager.LoadScene("DeadScreen");
+        Cursor.visible = true;
     }
 
     public bool playerOutOfHealth()

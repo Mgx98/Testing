@@ -6,18 +6,18 @@ public class Gravity : MonoBehaviour
 {
 
     private Vector3 velocity;
-    private float speed = 5;
-
-    [SerializeField] private Player player;
+    public float speed = 0.1f;
     private CharacterController controller;
-     
 
-    // Update is called once per frame
+    void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+    }
     void Update()
     {
-        velocity = transform.forward * Input.GetAxis("Vertical") * speed;
-        controller = player.currentPossessedBody.GetComponent<CharacterController>();
-        velocity.z = 0;
-        controller.SimpleMove(velocity);
+        velocity.y -= speed * Time.deltaTime;
+        controller.Move(velocity);
+        if (controller.isGrounded) velocity.y = 0;
+
     }
 }

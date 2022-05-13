@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class Minimap : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private Camera minimapCamera;
-
-    [SerializeField] private Image border;
-    [SerializeField] private RawImage minimap;
+    private Player player;
+    private Camera minimapCamera;
+    private Image border;
+    private RawImage minimap;
 
     public float size;
     public float clampOffset;
@@ -22,6 +21,14 @@ public class Minimap : MonoBehaviour
     private int minimapLayer = 1 << 7;
     private int minimapPointerLayer = 1 << 8;
 
+
+    void Awake()
+    {
+        player = GameObject.Find("Player Manager").GetComponent<Player>();
+        minimapCamera = GetComponent<Camera>();
+        border = GameObject.Find("Minimap Border").GetComponent<Image>();
+        minimap = GameObject.Find("Minimap Visual").GetComponent<RawImage>();
+    }
     void Start()
     {           
         UpdateSettings();

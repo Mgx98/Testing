@@ -34,6 +34,9 @@ namespace PossessionAbility
 		[SerializeField]
 		private Transform _spawnTransform;
 
+		[SerializeField]
+		private AudioSource _possessionSound;
+
 		private ParticleSystemForceField _particleSystemForceFieldInstance;
 
 		private float _possessionDelay;
@@ -44,26 +47,42 @@ namespace PossessionAbility
 			EventManager.AddListener<PossessionSwapEvent>(OnPossessionSwap);
 		}
 
+		private void OnDestroy()
+		{
+			EventManager.RemoveListener<PossessionStartEvent>(OnPossessionStart);
+			EventManager.RemoveListener<PossessionSwapEvent>(OnPossessionSwap);
+		}
+
 		private void OnPossessionStart(object eventData)
 		{
 			PossessionStartEvent possessionStartEvent = eventData as PossessionStartEvent;
+
+			_possessionSound.Play();
 
 			_possessionDelay = possessionStartEvent.Delay;
 
 			if (_spawnFromCurrentPossessable)
 				_spawnTransform = possessionStartEvent.CurrentPossessionObject.transform;
 
-			Instantiate(
+			ParticleSystem particleSystem = Instantiate(
 				_particleSystem,
 				_spawnTransform.position + _spawnTransform.forward * offset.x + _spawnTransform.up * offset.y + _spawnTransform.right * offset.z,
 				_spawnTransform.rotation
 			);
+
+			ParticleSystem.MainModule mainModule = particleSystem.main;
+			mainModule.startLifetime = possessionStartEvent.Delay;
 
 			StartCoroutine(InstantiateForceFieldRoutine(ForceFieldDelay, possessionStartEvent.TargetPossessionObject.transform.position));
 		}
 
 		private void OnPossessionSwap(object eventData)
 		{
+			StopAllCoroutines();
+
+			if (!_particleSystemForceFieldInstance)
+				return;
+
 			Destroy(_particleSystemForceFieldInstance.gameObject);
 		}
 

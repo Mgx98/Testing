@@ -15,9 +15,17 @@ public class BowCon : MonoBehaviour
 
     public Transform firePoint;
 
+    public AudioSource audioSource;
 
-    // Start is called before the first frame update
-    void Start()
+    private Player player;
+
+	private void Awake()
+	{
+        player = FindObjectOfType<Player>();
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         
     }
@@ -25,22 +33,21 @@ public class BowCon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (shotCounter > 0)
+            shotCounter -= Time.deltaTime;
 
-      
-
-
-        if(isFiring){
-            shotCounter-= Time.deltaTime;
+        if (isFiring){
             if(shotCounter <=0){
                 shotCounter = timeBetween;
+                audioSource.Play();
                 ArrowCon newArrow = Instantiate(arrow,firePoint.position,firePoint.rotation) as ArrowCon;
+                if (tag == "Enemy")
+				{
+                    newArrow.transform.LookAt(player.currentPossessedBody.transform);
+                    newArrow.tag = "Enemy";
+				}
                 newArrow.speed = arrowSpeed;
             }
-        } 
-        else 
-        {
-            shotCounter = 0;
         }
-
     }
 }

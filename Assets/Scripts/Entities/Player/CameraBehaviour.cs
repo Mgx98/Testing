@@ -17,6 +17,7 @@ namespace PossessionGame
         CameraModes cameraMode;
         private Vector3 moveSpeed = Vector3.zero;
         [Range(0.1f, 1.5f)] [SerializeField] private float smoothTime = 0.5f;
+        [SerializeField] private Vector3 offset;
 
         // Start is called before the first frame update
         void Start()
@@ -53,7 +54,7 @@ namespace PossessionGame
         public void SetCameraToOverShoulder()
         {
             cameraMode = CameraModes.OverShoulder;
-            cameraFollowPoint.transform.localPosition = new Vector3(0, 1.5f, -2.5f);
+            cameraFollowPoint.transform.localPosition = offset;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

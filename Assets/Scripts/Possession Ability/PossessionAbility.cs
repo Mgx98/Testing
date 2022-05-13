@@ -52,5 +52,24 @@ namespace PossessionAbility
 		{
 			EventManager.Trigger(new PossessionStartEvent(currentPossessionObject, targetPossessionObject, delay));
 		}
+
+		/// <summary>
+		/// Leave the possesssed object
+		/// </summary>
+		/// <param name="currentPossessionObject">The object to possess from</param>
+		public static void LeavePossession(GameObject currentPossessionObject)
+		{
+			EventManager.Trigger(new PossessionLeaveEvent(currentPossessionObject, 0));
+		}
+
+		/// <summary>
+		/// Leave the possesssed object
+		/// </summary>
+		/// <param name="currentPossessionObject">The object to possess from</param>
+		/// <param name="delay">The delay before possessing the target object</param>
+		public static void LeavePossession(GameObject currentPossessionObject, float delay)
+		{
+			EventManager.Trigger(new PossessionLeaveEvent(currentPossessionObject, delay));
+		}
 	}
 }

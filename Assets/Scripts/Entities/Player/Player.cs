@@ -5,8 +5,8 @@ public class Player : MonoBehaviour
 {
     #region SerialisedFields
 
-    [Range(20f, 100f)] [SerializeField] private float moveSpeed = 20;   //the speed at which the player will move
-    [Range(10f, 50f)] [SerializeField] private float strafeSpeed = 15f; //the speed at which the player will strafe in OverShoulder mode
+    [Range(0f, 100f)] [SerializeField] public float moveSpeed = 20;   //the speed at which the player will move
+    //[Range(10f, 50f)] [SerializeField] private float strafeSpeed = 15f; //the speed at which the player will strafe in OverShoulder mode
     [Range(0.1f, 2.0f)] [SerializeField] private float smoothTime = 1;  //the time it will take for the player to accelerate to the movespeed
     [SerializeField] private bool invertMouseY = true;
 
@@ -22,7 +22,8 @@ public class Player : MonoBehaviour
     CharacterController characterController;
 
     // nca
-    public PlayerHealth health;
+    //public PlayerHealth health;
+    //public Stamina stamina;
     public BowCon theBow;
 
     //reference to the camera script
@@ -61,15 +62,15 @@ public class Player : MonoBehaviour
     #region MovementLogic
     void Start()
     {
-        health = currentPossessedBody.AddComponent<PlayerHealth>(); 
-         characterController = currentPossessedBody.AddComponent<CharacterController>();
+        //health = currentPossessedBody.AddComponent<PlayerHealth>(); 
+        characterController = currentPossessedBody.GetComponent<CharacterController>();
         _mainCamera = Camera.main.GetComponent<CameraBehaviour>();
     }
 
     void Update()
     {
 
-        
+
         if (_mainCamera.CameraMode == CameraBehaviour.CameraModes.TopDown)
         {
             CalculateObjectSpeedTopdown();
@@ -81,14 +82,14 @@ public class Player : MonoBehaviour
             CalculateObjectSpeedOverShoulder();
         }
 
-        if (Input.GetKeyDown("space"))
+        /*if (Input.GetKeyDown("space"))
         {
             _mainCamera.ToggleCamera();
-        }
+        }*/
 
         /////nca
         ///
-        if (currentPossessedBody.gameObject.name == "ArcherBody")
+        if (currentPossessedBody.gameObject.name.Contains("Tank"))
         {
 
             if (Input.GetMouseButtonDown(0))
@@ -119,7 +120,7 @@ public class Player : MonoBehaviour
     private void CalculateObjectSpeedOverShoulder()
     {
         Vector3 targetVelocity = Vector3.zero;
-        targetVelocity.x = Input.GetAxisRaw("Horizontal") * strafeSpeed;
+        //targetVelocity.x = Input.GetAxisRaw("Horizontal") * strafeSpeed;
         targetVelocity.z = Input.GetAxisRaw("Vertical") * moveSpeed;
 
         targetVelocity = currentPossessedBody.transform.right * targetVelocity.x + currentPossessedBody.transform.forward * targetVelocity.z;
@@ -177,15 +178,15 @@ public class Player : MonoBehaviour
 
     public void SetTargetTo(GameObject target)
     {
-        Destroy(currentPossessedBody.GetComponent<CharacterController>());
+        //Destroy(currentPossessedBody.GetComponent<CharacterController>());
         currentPossessedBody = target;
 
         //nca
-        health = currentPossessedBody.AddComponent<PlayerHealth>();
-       
+        //health = currentPossessedBody.AddComponent<PlayerHealth>();
 
 
-        characterController = currentPossessedBody.AddComponent<CharacterController>();
+
+        characterController = currentPossessedBody.GetComponent<CharacterController>();
 
         _mainCamera.SetTargetTo(target);
     }

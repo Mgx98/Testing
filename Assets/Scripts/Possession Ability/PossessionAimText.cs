@@ -40,9 +40,18 @@ namespace PossessionAbility
 				));
 		}
 
+		private void OnDestroy()
+		{
+			EventManager.RemoveListener<AimAtPossessableEnterEvent>(OnAimAtPossessableEnter);
+			EventManager.RemoveListener<AimAtPossessableExitEvent>(OnAimAtPossessableExit);
+		}
+
 		private void OnAimAtPossessableEnter(object eventData)
 		{
 			AimAtPossessableEnterEvent aimAtPossessableEnterEvent = eventData as AimAtPossessableEnterEvent;
+
+			if (aimAtPossessableEnterEvent.CurrentPossessionObject.tag != "Ghost")
+				return;
 
 			textObject.transform.position = aimAtPossessableEnterEvent.TargetPossessionObject.transform.position + offset;
 

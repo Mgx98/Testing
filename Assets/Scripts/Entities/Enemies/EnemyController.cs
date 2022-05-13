@@ -22,7 +22,7 @@ namespace Entities.Enemies
     
      
         
-        #region Fields
+       
 
         
 
@@ -49,9 +49,9 @@ namespace Entities.Enemies
         bool patrolForward;
         float waitTimer;
 
-        #endregion
+       
 
-        #region Base
+       
 
         protected override void Awake()
         {
@@ -135,9 +135,9 @@ namespace Entities.Enemies
 
         }
 
-        #endregion
+        
 
-        #region Combat Behaviour
+        
 
         public override void TakeDamage(int attackDamage)
         {
@@ -153,10 +153,10 @@ namespace Entities.Enemies
         {
         }
 
-        #endregion
+      
 
 
-        #region AI States
+       
 
         private bool PlayerInSight()
         {
@@ -179,8 +179,10 @@ namespace Entities.Enemies
         public void Attacking()
         {
             _agent.SetDestination(transform.localPosition);
+            transform.LookAt(_player.currentPossessedBody.transform.localPosition);
 
-           
+
+
         }
 
         
@@ -228,11 +230,11 @@ namespace Entities.Enemies
 
 
 
-        #endregion
+      
 
 
 
-        #region Editor Helpers
+       
 
         private void OnDrawGizmosSelected()
         {
@@ -246,6 +248,6 @@ namespace Entities.Enemies
             Gizmos.DrawWireSphere(position, EntityStats.Sight);
         }
 
-        #endregion
+       
     }
 }

@@ -20,7 +20,7 @@ public class Regen : MonoBehaviour
         if (possessed)
         {
             health = FindObjectOfType<PlayerHealth>();
-            health.heal(0.015f);
+            health.Heal(0.015f);
         }
     }
 }

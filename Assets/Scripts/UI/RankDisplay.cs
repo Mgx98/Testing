@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class RankDisplay : MonoBehaviour
 {
-    [SerializeField] private Text playerRankText;
-        
+    private Text playerRankText;
+
+    void Awake()
+    {
+        playerRankText = GetComponent<Text>();
+    }
     public void SetStartingRank(int startRank)
     {
         playerRankText.text = "" + startRank;

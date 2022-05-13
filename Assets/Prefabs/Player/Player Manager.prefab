@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3887928855958385779}
   - component: {fileID: 3887928855958385776}
-  - component: {fileID: 7007440813351263288}
-  - component: {fileID: 2706609348709798970}
   - component: {fileID: 3817999361491040511}
-  - component: {fileID: 9170089593466109231}
+  - component: {fileID: 3838447964702179536}
+  - component: {fileID: 2316791854628816109}
   m_Layer: 0
   m_Name: Player Manager
   m_TagString: Untagged
@@ -49,40 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
-  strafeSpeed: 15
   smoothTime: 1
   invertMouseY: 1
   currentPossessedBody: {fileID: 0}
---- !u!114 &7007440813351263288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3887928855958385781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a83a86b703a49f140a974609f9be442d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 0
-  healthDisplayer: {fileID: 0}
---- !u!114 &2706609348709798970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3887928855958385781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a778d578f3bc146b813103b36a98c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rankDisplayer: {fileID: 0}
-  playerRank: 0
-  startingRank: 1
+  theBow: {fileID: 0}
 --- !u!114 &3817999361491040511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,8 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681d7d7d283ddba499353ae331b167ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
---- !u!114 &9170089593466109231
+--- !u!114 &3838447964702179536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +73,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 3887928855958385781}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db87ed8a3731c3a4096b40d9f3c05cb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c74a554f20e8124e8bcbbfb5b972faf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3887928855958385776}
+  amountOfDamage: 8
+  amountOfHeal: 3
+  maxHealth: 100
+  health: 0
+--- !u!114 &2316791854628816109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887928855958385781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48fff5248e871b0469bffcc8bdd7143c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaveBodyDelay: 0
+  stamina: 0
+  maxStamina: 0
+  isGhost: 0
 --- !u!1 &6119347880517577965
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a60eace590af14298d5d6cab4bcb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!114 &5975286721798033415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,4 +204,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8814d0c4ba7bd94dab00e961b42bf83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimapCamera: {fileID: 0}

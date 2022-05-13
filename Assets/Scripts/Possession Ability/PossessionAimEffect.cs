@@ -17,24 +17,37 @@ namespace PossessionAbility
 			EventManager.AddListener<AimAtPossessableExitEvent>(OnAimAtPossessableExit);
 		}
 
+		private void OnDestroy()
+		{
+			EventManager.RemoveListener<AimAtPossessableEnterEvent>(OnAimAtPossessableEnter);
+			EventManager.RemoveListener<AimAtPossessableExitEvent>(OnAimAtPossessableExit);
+		}
+
 		private void OnAimAtPossessableEnter(object eventData)
 		{
 			AimAtPossessableEnterEvent aimAtPossessableEnterEvent = eventData as AimAtPossessableEnterEvent;
 
-			MeshRenderer meshRenderer = aimAtPossessableEnterEvent.TargetPossessionObject.GetComponent<MeshRenderer>();
+			if (aimAtPossessableEnterEvent.CurrentPossessionObject.tag != "Ghost")
+				return;
 
-			meshRenderer.material.SetColor("_EmissionColor", color * intensity);
-			meshRenderer.material.EnableKeyword("_EMISSION");
+			MeshRenderer[] meshRenderers = aimAtPossessableEnterEvent.TargetPossessionObject.GetComponentsInChildren<MeshRenderer>();
+
+			foreach (MeshRenderer meshRenderer in meshRenderers)
+			{
+				meshRenderer.material.color = color * intensity;
+			}
 		}
 
 		private void OnAimAtPossessableExit(object eventData)
 		{
 			AimAtPossessableExitEvent aimAtPossessableExitEvent = eventData as AimAtPossessableExitEvent;
 
-			MeshRenderer meshRenderer = aimAtPossessableExitEvent.TargetPossessionObject.GetComponent<MeshRenderer>();
+			MeshRenderer[] meshRenderers = aimAtPossessableExitEvent.TargetPossessionObject.GetComponentsInChildren<MeshRenderer>();
 
-			meshRenderer.material.SetColor("_EmissionColor", Color.black);
-			meshRenderer.material.DisableKeyword("_EMISSION");
+			foreach (MeshRenderer meshRenderer in meshRenderers)
+			{
+				meshRenderer.material.color = Color.white;
+			}
 		}
 	}
 }

@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class PlayerRank : MonoBehaviour
 {
-    [SerializeField] private RankDisplay rankDisplayer;
-    public int playerRank;
+    private RankDisplay rankDisplayer;
+    [HideInInspector] public int playerRank;
     public int startingRank = 1;
+
+    private void Awake()
+    {
+        rankDisplayer = GameObject.Find("Rank").GetComponent<RankDisplay>();
+    }
+
     void Start()
     {
         playerRank = startingRank;
         rankDisplayer.SetStartingRank(startingRank);
-    }
-
-    void Update()
-    {
     }
 
     public void RankUp()

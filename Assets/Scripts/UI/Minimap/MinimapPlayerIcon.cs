@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class MinimapPlayerIcon : MonoBehaviour
 {
-    [SerializeField] private Player player;
+    private Player player;
+
+    private void Awake()
+    {
+        player = GameObject.Find("Player Manager").GetComponent<Player>();
+    }
 
     void Update()
     {

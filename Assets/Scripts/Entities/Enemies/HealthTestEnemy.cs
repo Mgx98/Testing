@@ -5,20 +5,29 @@ using UnityEngine;
 public class HealthTestEnemy : MonoBehaviour
 {
 
-    [SerializeField] private PlayerHealth playerHealth;
-    // Start is called before the first frame update
-    void Start()
+    private PlayerHealth playerHealth;
+    private PlayerStamina playerStamina;
+    //private BodyStamina bodyStamina;
+    //private EnemyHealth enemyHealth;
+    void Awake()
     {
-        
+        playerHealth = GameObject.Find("Player Manager").GetComponent<PlayerHealth>();
+        playerStamina = GameObject.Find("Player Manager").GetComponent<PlayerStamina>();
+        //bodyStamina = GameObject.Find("Cube").GetComponent<BodyStamina>();
+        //enemyHealth = GetComponentInChildren<EnemyHealth>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
-            playerHealth.TakeDamage(10f);
+        //playerHealth.isGhost = true;
+        playerStamina.TakeDamage(10);
+        //enemyHealth.TakeDamage(10);
+        other.GetComponent<BodyStamina>().TakeDamage(10);
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //playerHealth.isGhost = false;
     }
 }

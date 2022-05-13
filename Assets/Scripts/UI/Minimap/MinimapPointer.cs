@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class MinimapPointer : MonoBehaviour
 {
-    [SerializeField] private Minimap minimap;
-    [SerializeField] private SpriteRenderer icon;
-    [SerializeField] private Player player;
+    private Minimap minimap;
+    private Player player;
+    private SpriteRenderer icon;
 
     [SerializeField] private Sprite iconSprite;
     [SerializeField] private Sprite pointerSprite;
 
     private int minimapLayer = 7;
     private int minimapPointerLayer = 8;
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+
+        minimap = GameObject.Find("Minimap Camera").GetComponent<Minimap>();
+        player = GameObject.Find("Player Manager").GetComponent<Player>();
+        icon = GetComponent<SpriteRenderer>();
+
+    }
     void Start()
     {
         if (InsideMinimapRadius() && icon.sprite != iconSprite) ChangeToIcon();
         if (!InsideMinimapRadius() && icon.sprite != pointerSprite) ChangeToPointer();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (InsideMinimapRadius() && icon.sprite != iconSprite) ChangeToIcon();

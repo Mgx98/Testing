@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Waypoint
+  - Body
+  - Ghost
+  - Score
+  - Highscore
   layers:
   - Default
   - TransparentFX
@@ -14,7 +20,7 @@ TagManager:
   - Possessable
   - Minimap
   - MinimapPointer
-  - 
+  - PostProcessing
   - 
   - 
   - 

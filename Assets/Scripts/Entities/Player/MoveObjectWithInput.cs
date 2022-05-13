@@ -34,10 +34,10 @@ namespace PossessionGame
                 CalculateObjectSpeedOverShoulder();
             }
 
-            if (Input.GetKeyDown("space"))
+            /*if (Input.GetKeyDown("space"))
             {
                 _mainCamera.ToggleCamera();
-            }
+            }*/
         }
 
         private void LateUpdate()

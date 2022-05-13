@@ -66,6 +66,8 @@ namespace PossessionAbility
 			}
 		}
 
+#if DEBUG
+
 		private void OnDrawGizmos()
 		{
 			// Draw interaction ray
@@ -73,5 +75,8 @@ namespace PossessionAbility
 			Gizmos.color = gizmosColor;
 			Gizmos.DrawRay(target.transform.position, direction);
 		}
+
+#endif
+
 	}
 }

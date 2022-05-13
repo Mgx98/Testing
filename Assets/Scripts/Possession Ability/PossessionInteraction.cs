@@ -1,4 +1,5 @@
 using CM.Events;
+using Entities.Enemies;
 using PossessionAbility.Events;
 using System.Collections;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace PossessionAbility
 
 		public float delay;
 
+		public GameObject enemyPossessedPrefab;
+
 		private RaycastInteraction _raycastInteraction;
 
 		private void Awake()
@@ -23,6 +26,13 @@ namespace PossessionAbility
 			_raycastInteraction.OnInteraction += OnInteraction;
 			_raycastInteraction.OnRaycastEnter += OnRaycastEnter;
 			_raycastInteraction.OnRaycastExit += OnRaycastExit;
+
+			EventManager.AddListener<PossessionStartEvent>(OnPossessionStart);
+		}
+
+		private void OnDestroy()
+		{
+			EventManager.RemoveListener<PossessionStartEvent>(OnPossessionStart);
 		}
 
 		private IEnumerator PossessionDelayRoutine(float delay, PossessionSwapEvent possessionSwapEvent)
@@ -34,21 +44,38 @@ namespace PossessionAbility
 			IsPossessing = false;
 		}
 
+		private void OnPossessionStart(object eventData)
+		{
+			PossessionStartEvent possessionStartEvent = eventData as PossessionStartEvent;
+
+			IsPossessing = true;
+
+			PossessionSwapEvent possessionSwapEvent = new PossessionSwapEvent(
+				possessionStartEvent.CurrentPossessionObject,
+				possessionStartEvent.TargetPossessionObject
+			);
+
+			StartCoroutine(PossessionDelayRoutine(possessionStartEvent.Delay, possessionSwapEvent));
+		}
+
 		private void OnInteraction(GameObject currentGameObject, GameObject targetGameObject)
 		{
 			if (IsPossessing)
 				return;
 
-			IsPossessing = true;
+			if (currentGameObject.tag != "Ghost")
+				return;
 
-			PossessionAbility.Possess(currentGameObject, targetGameObject, delay);
+			EventManager.Trigger(new AimAtPossessableExitEvent(currentGameObject, targetGameObject));
 
-			PossessionSwapEvent possessionSwapEvent = new PossessionSwapEvent(
-				currentGameObject,
-				targetGameObject
-			);
+			Tank tank = targetGameObject.GetComponent<Tank>();
 
-			StartCoroutine(PossessionDelayRoutine(delay, possessionSwapEvent));
+			GameObject newPlayer = Instantiate(tank.possessionPrefab, targetGameObject.transform.position, targetGameObject.transform.rotation);
+			FindObjectOfType<Player>().moveSpeed = tank.possessionMoveSpeed;
+			Destroy(targetGameObject);
+
+			PossessionAbility.Possess(currentGameObject, newPlayer, delay);
+			
 		}
 
 		private void OnRaycastEnter(GameObject currentGameObject, GameObject targetGameObject)
