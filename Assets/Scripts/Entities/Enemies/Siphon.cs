@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using Entities.Enemies;
 
 public class Siphon : MonoBehaviour
@@ -40,6 +41,7 @@ public class Siphon : MonoBehaviour
             if (shotCounter <= 0)
             {
                 shotCounter = timeBetween;
+                Analytics.CustomEvent("Shot Fired");
                 Life newLife = Instantiate(life, firePoint.position, firePoint.rotation) as Life;
                 newLife.speed = cubeSpeed;
             }

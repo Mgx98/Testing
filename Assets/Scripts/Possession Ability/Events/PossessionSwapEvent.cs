@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 namespace PossessionAbility.Events
 {
@@ -15,6 +16,7 @@ namespace PossessionAbility.Events
 		{
 			CurrentPossessionObject = currentPossessionObject;
 			TargetPossessionObject = targetPossessionObject;
+			Analytics.CustomEvent("Body Swapped");
 		}
 	}
 }
